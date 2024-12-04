@@ -1,5 +1,6 @@
 package buffetAplicacion.controllers;
 
+import buffetAplicacion.DTO.UsuarioDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,14 +24,13 @@ public class UsuarioRestController {
 	UserService userService;
 
 	@PostMapping
-	public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario user){
-		System.out.println("creando usuario con nombre "+ user.getNombres() );
-				userService.saveUser(user);
-				return new ResponseEntity<Usuario>(HttpStatus.CREATED);
+	public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody UsuarioDTO user){
+		userService.saveUser(user);
+		return new ResponseEntity<UsuarioDTO>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{dni}")
-	public ResponseEntity<Usuario> actualizarUsuario(@PathVariable("dni") int dni, @RequestBody Usuario user,
+	public ResponseEntity<UsuarioDTO> actualizarUsuario(@PathVariable("dni") int dni, @RequestBody UsuarioDTO user,
 			 @RequestHeader(HttpHeaders.AUTHORIZATION) String token
 			){
 		 // Extraer ID de usuario desde el token
@@ -38,10 +38,9 @@ public class UsuarioRestController {
         if (idUsuario == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 Unauthorized
         }
-		user.setDni(dni);
-		userService.actualizar(user);
+		userService.actualizar(user,dni);
 		System.out.println("llego a actualizar");
-		return new ResponseEntity<>(user,HttpStatus.OK);
+		return new ResponseEntity<UsuarioDTO>(user,HttpStatus.OK);
     }
 
 	private Long obtenerToken(String token) {
@@ -62,7 +61,7 @@ public class UsuarioRestController {
     }
 
 	@PostMapping("/Autenticacion")
-	public ResponseEntity<Usuario> inicioSesion( @RequestHeader("dni") int dni,
+	public ResponseEntity<UsuarioDTO> inicioSesion( @RequestHeader("dni") int dni,
             @RequestHeader("clave") String clave){
 		Usuario recuperado = this.userService.recurperarUserClave(clave, dni);
 		String token="nuevoToken";
@@ -70,13 +69,13 @@ public class UsuarioRestController {
 	}
 
 	@GetMapping("/{dni}")
-	public ResponseEntity<Usuario> recuperarUsuario(@PathVariable("dni") int dni,
-														 @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+	public ResponseEntity<UsuarioDTO> recuperarUsuario(@PathVariable("dni") int dni,
+													   @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
 		Long tokenUsuario = obtenerToken(token);
 		if (tokenUsuario == null) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 Unauthorized
 		}
-		Usuario recuperado = this.userService.recuperar(dni);
+		UsuarioDTO recuperado = this.userService.recuperar(dni);
 		return ResponseEntity.ok(recuperado);
 	}
 }
