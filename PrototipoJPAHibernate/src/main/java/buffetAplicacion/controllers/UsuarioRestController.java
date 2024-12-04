@@ -1,5 +1,6 @@
 package buffetAplicacion.controllers;
 
+import buffetAplicacion.DTO.AuthenticationDTO;
 import buffetAplicacion.DTO.UsuarioDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class UsuarioRestController {
         if (idUsuario == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 Unauthorized
         }
+		user.setDni(dni);
 		userService.actualizar(user,dni);
 		System.out.println("llego a actualizar");
 		return new ResponseEntity<UsuarioDTO>(user,HttpStatus.OK);
@@ -61,9 +63,8 @@ public class UsuarioRestController {
     }
 
 	@PostMapping("/Autenticacion")
-	public ResponseEntity<UsuarioDTO> inicioSesion( @RequestHeader("dni") int dni,
-            @RequestHeader("clave") String clave){
-		Usuario recuperado = this.userService.recurperarUserClave(clave, dni);
+	public ResponseEntity inicioSesion(@RequestBody AuthenticationDTO request){
+		Usuario recuperado = this.userService.recurperarUserClave(request.getClave(), request.getDni());
 		String token="nuevoToken";
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).header("token", token).build();
 	}

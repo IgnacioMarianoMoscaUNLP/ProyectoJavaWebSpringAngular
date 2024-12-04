@@ -21,6 +21,8 @@ public class Usuario {
     private String email;
 
     @Lob
+
+
     @Column(name = "foto", columnDefinition = "BLOB")
     private byte[] foto;  // Cambiado a byte[] para almacenar como BLOB
 

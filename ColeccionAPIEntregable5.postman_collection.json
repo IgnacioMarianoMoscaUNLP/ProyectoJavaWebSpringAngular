@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"apellido\": \"García\",\r\n    \"dni\": 12345678,\r\n    \"nombres\": \"Juan\",\r\n    \"email\": \"juan.garcia@example.com\",\r\n    \"foto\": null,\r\n    \"clave\": \"password123\"\r\n}",
+					"raw": "{\r\n    \"apellido\": \"Gomez\",\r\n    \"dni\": 12235,\r\n    \"nombres\": \"tomas\",\r\n    \"email\": \"tomasgomez@example.com\",\r\n    \"foto\": null,\r\n    \"clave\": \"password123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"apellido\": \"García\",\r\n    \"dni\": 12345678,\r\n    \"nombres\": \"Juan\",\r\n    \"email\": \"juan.garcia@example.com\",\r\n    \"foto\": null,\r\n    \"clave\": \"password123\"\r\n}",
+					"raw": "{   \"dni\":null,\r\n    \"apellido\": \"García\",\r\n    \"nombres\": \"Juan\",\r\n    \"email\": \"juan.garcia@example.com\",\r\n    \"foto\": null,\r\n    \"clave\": \"pass\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,7 +64,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuario/123",
+					"raw": "http://localhost:8080/usuario/12235",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -72,7 +72,7 @@
 					"port": "8080",
 					"path": [
 						"usuario",
-						"123"
+						"12235"
 					]
 				}
 			},
@@ -84,16 +84,20 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "dni",
-						"value": "1234",
-						"type": "text"
-					},
-					{
-						"key": "clave",
-						"value": "my",
+						"key": "Content-Type",
+						"value": "application/json",
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clave\": \"password123\",\r\n    \"dni\": 12235\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8080/usuario/Autenticacion",
 					"protocol": "http",
@@ -289,25 +293,6 @@
 			"response": []
 		},
 		{
-			"name": "ObtenerComidas",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/comida",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"comida"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "CrearComida",
 			"request": {
 				"method": "POST",
@@ -327,6 +312,25 @@
 						}
 					}
 				},
+				"url": {
+					"raw": "http://localhost:8080/comida",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comida"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerComidas",
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/comida",
 					"protocol": "http",
