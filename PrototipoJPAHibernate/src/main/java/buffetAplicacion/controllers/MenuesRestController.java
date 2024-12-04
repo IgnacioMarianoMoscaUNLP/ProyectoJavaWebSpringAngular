@@ -1,4 +1,5 @@
 package buffetAplicacion.controllers;
+import buffetAplicacion.DTO.MenuDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -18,27 +19,27 @@ public class MenuesRestController {
 	private MenuesService menuesService;
 	 
 	 @PostMapping
-	    public ResponseEntity<Menu> crearMenu(@RequestBody Menu menu) {
-	        Menu nuevoMenu = menuesService.crearMenu(menu);
+	    public ResponseEntity<MenuDTO> crearMenu(@RequestBody MenuDTO menu) {
+	        MenuDTO nuevoMenu = menuesService.crearMenu(menu);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoMenu);
 	    }
 
 	    @PutMapping("/{id}")
-	    public ResponseEntity<Menu> actualizarMenu(@PathVariable("id") Long id, @RequestBody Menu menu) {
+	    public ResponseEntity<MenuDTO> actualizarMenu(@PathVariable("id") Long id, @RequestBody MenuDTO menu) {
 	     	menu.setIdmenu(id);
-		 	Menu menuActualizado = menuesService.actualizarMenu(menu);
+		 	MenuDTO menuActualizado = menuesService.actualizarMenu(menu);
 		 	return ResponseEntity.ok(menuActualizado);
 	    }
 
 	    @GetMapping("/{id}")
-	    public ResponseEntity<Menu> obtenerMenuPorId(@PathVariable("id") Long id) {
-	        Menu menu = menuesService.obtenerMenuPorId(id);
+	    public ResponseEntity<MenuDTO> obtenerMenuPorId(@PathVariable("id") Long id) {
+	        MenuDTO menu = menuesService.obtenerMenuPorId(id);
 			return ResponseEntity.ok(menu);
 	    }
 
 	    @GetMapping
-	    public ResponseEntity<List<Menu>> obtenerTodosLosMenus() {
-	        List<Menu> menus = menuesService.obtenerTodosLosMenus();
+	    public ResponseEntity<List<MenuDTO>> obtenerTodosLosMenus() {
+	        List<MenuDTO> menus = menuesService.obtenerTodosLosMenus();
 	        return ResponseEntity.ok(menus);
 	    }
 	

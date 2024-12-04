@@ -6,6 +6,8 @@ import lombok.*;
 @Entity
 @Table(name="MENUES")
 @Data
+@Getter
+@Setter
 public class Menu {
 	
 	@Id
@@ -17,12 +19,20 @@ public class Menu {
 
 	private String tipo;
 
+
+	/*
+	* Ver que directamente guarde el id de comida
+	* ya que en la api podemos pasar lista de id comida
+	* "comida":[1,2,3,4]
+	*
 	@ManyToMany
 	@JoinTable(
 		name = "menues_comidas",
 		joinColumns = @JoinColumn(name = "menu_id"),
 		inverseJoinColumns = @JoinColumn(name = "comida_id"))
-	private List<Comida> comidas;
+	*/
+	private List<Long> comidas;
+
 
 	@Enumerated(EnumType.STRING)  // O EnumType.ORDINAL
 	private Dias dias;

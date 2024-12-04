@@ -19,12 +19,18 @@ public class MenuDTO {
 
     private String tipo;
 
-    private List<Comida> comidas;
+    private List<Long> comidas;
+
+    private Dias dias;
+
+    public enum Dias {
+        LUNES, MARTES, MIERCOLES, JUEVES, VIERNES
+    }
 
     public MenuDTO() {
     }
 
-    public MenuDTO(Long idMenu, Double precio, String tipo, List<Comida> comidas) {
+    public MenuDTO(Long idMenu, Double precio, String tipo, List<Long> comidas) {
         this.idmenu = idMenu;
         this.precio = precio;
         this.tipo = tipo;
